@@ -1,0 +1,54 @@
+---
+#####################################
+### Create OUs
+#####################################
+
+- name: Ensure OU is present & protected
+  community.windows.win_domain_ou:
+    name: '{{ item }}'
+    path: "DC=dt,DC=training"
+    state: present
+    protected: true
+  loop:
+     - Objects
+
+- name: Ensure OU is present & protected
+  community.windows.win_domain_ou:
+    name: '{{ item }}'
+    path: "OU=Objects,DC=dt,DC=training"
+    state: present
+    protected: true
+  loop:
+     - Computer
+     - Groups
+     - Accounts
+
+- name: Ensure OU is present & protected
+  community.windows.win_domain_ou:
+    name: '{{ item }}'
+    path: "OU=Computer,OU=Objects,DC=dt,DC=training"
+    state: present
+    protected: true
+  loop:
+     - 02_Administration
+     - 03_Environment
+
+- name: Ensure OU is present & protected
+  community.windows.win_domain_ou:
+    name: '{{ item }}'
+    path: "OU=03_Environment,OU=Computer,OU=Objects,DC=dt,DC=training"
+    state: present
+    protected: true
+  loop:
+     - FatClient
+     - RDSH
+
+- name: Ensure OU is present & protected
+  community.windows.win_domain_ou:
+    name: '{{ item }}'
+    path: "OU=Accounts,OU=Objects,DC=dt,DC=training"
+    state: present
+    protected: true
+  loop:
+     - User
+     - Admins
